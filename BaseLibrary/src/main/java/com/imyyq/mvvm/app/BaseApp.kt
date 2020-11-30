@@ -1,0 +1,79 @@
+package com.imyyq.mvvm.app
+
+import android.app.Activity
+import android.app.Application
+import android.os.Bundle
+import com.imyyq.mvvm.http.HttpRequest
+import com.imyyq.mvvm.utils.SPUtils
+
+open class BaseApp : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        initApp(this)
+    }
+
+    companion object {
+        private lateinit var app: Application
+
+        private var activityAccount = 0
+        var isForeground = true
+
+        @JvmStatic
+        fun initApp(app: Application) {
+            Companion.app = app
+
+            // 监听所有 Activity 的创建和销毁
+            if (GlobalConfig.gIsNeedActivityManager) {
+                app.registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+                    override fun onActivityPaused(activity: Activity) {
+                    }
+
+                    override fun onActivityStarted(activity: Activity) {
+                        activityAccount++
+                        isForeground = true
+                    }
+
+                    override fun onActivityDestroyed(activity: Activity) {
+                        AppActivityManager.remove(activity)
+                    }
+
+                    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
+                    }
+
+                    override fun onActivityStopped(activity: Activity) {
+                        activityAccount--
+                        if (activityAccount == 0) {
+                            isForeground = false
+                        }
+                    }
+
+                    override fun onActivityCreated(
+                        activity: Activity,
+                        savedInstanceState: Bundle?
+                    ) {
+                        AppActivityManager.add(activity)
+                    }
+
+                    override fun onActivityResumed(activity: Activity) {
+                    }
+
+                })
+            }
+        }
+
+        @JvmStatic
+        fun getInstance(): Application {
+            return app
+        }
+
+        /**
+         * 清空用户信息
+         */
+        fun clearUserInfo() {
+            SPUtils.getInstance(GlobalConfig.spUserInfo).clear()
+        }
+    }
+
+}

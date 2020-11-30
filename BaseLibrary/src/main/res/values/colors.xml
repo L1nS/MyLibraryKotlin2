@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+    <color name="colorTheme">#2168cc</color>
+    <color name="colorWhite">#FFFFFF</color>
+
+    <color name="colorTransparent">#00000000</color>
+
+    <color name="colorStatusBar">#FFFFFF</color>
+
+
+
+    <color name="colorTextBlack">#333333</color>
+
+    <color name="colorNavBar">#FFFFFF</color>
+    <color name="colorLoading">#33A9E1</color>
+
+    <color name="colorLineGray">#f2f2f2</color>
+</resources>

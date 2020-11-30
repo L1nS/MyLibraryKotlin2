@@ -1,0 +1,117 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    // Kotlin 需要增加 kapt plugin 才可以使用 DataBinding
+    id 'kotlin-kapt'
+}
+def keystoreFilepath = ''
+def keystorePSW = ''
+def keystoreAlias = ''
+def keystoreAliasPSW = ''
+// default keystore file, PLZ config file path in local.properties
+def keyfile = file('s.keystore.temp')
+
+Properties properties = new Properties()
+// local.properties file in the root director
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+keystoreFilepath = properties.getProperty("keystore.path")
+
+if (keystoreFilepath) {
+    keystorePSW = properties.getProperty("keystore.password")
+    keystoreAlias = properties.getProperty("keystore.alias")
+    keystoreAliasPSW = properties.getProperty("keystore.alias_password")
+    keyfile = file(keystoreFilepath)
+}
+
+android {
+    compileSdkVersion SysConfig.compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.lins.mykotlinlibrary2"
+        minSdkVersion SysConfig.minSdkVersion
+        targetSdkVersion SysConfig.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            //APP的build.gradle设置支持的SO库架构
+            abiFilters 'armeabi', 'armeabi-v7a'/*, 'x86'*/
+        }
+    }
+    // Gradle Plugin 4.0 及以上,其中 viewBinding 是你有不需要用 DataBinding 的类时，才需要开启，
+    // 不想用 DataBinding，可只继承自 ViewBindingBaseXxxxx 基类
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
+
+    // 开启 Java 8 支持
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "${JavaVersion.VERSION_1_8}"
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    androidExtensions {
+        experimental = true
+    }
+
+
+    signingConfigs {
+        release {
+            keyAlias keystoreAlias
+            keyPassword keystoreAliasPSW
+            storeFile keyfile
+            storePassword keystorePSW
+        }
+        debug {
+            keyAlias keystoreAlias
+            keyPassword keystoreAliasPSW
+            storeFile keyfile
+            storePassword keystorePSW
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true      //混淆
+            zipAlignEnabled true    //Zipalign优化
+            shrinkResources true    // 移除无用的resource文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled true      //混淆
+            zipAlignEnabled true    //Zipalign优化
+            shrinkResources true    // 移除无用的resource文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+        }
+    }
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                outputFileName = "Easy earn" + "-" +
+                        buildType.name + "-v" + defaultConfig.versionName + "-" +
+                        defaultConfig.versionCode + ".apk"
+            }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    implementation project(path: ':BaseLibrary')
+}
