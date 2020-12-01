@@ -22,7 +22,7 @@ object GlobalConfig {
 
     const val BUS_TAG_TOKEN_TIMEOUT = 1
 
-    const val FILE_PROVIDER = "com.ect.easyearn.provider"
+    const val FILE_PROVIDER = "com.lins.mykotlinlibrary2.provider"
     /**
      * 加载中对话框是否可点击返回键隐藏对话框
      */

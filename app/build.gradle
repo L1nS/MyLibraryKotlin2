@@ -76,10 +76,10 @@ android {
             storePassword keystorePSW
         }
         debug {
-            keyAlias keystoreAlias
-            keyPassword keystoreAliasPSW
-            storeFile keyfile
-            storePassword keystorePSW
+//            keyAlias keystoreAlias
+//            keyPassword keystoreAliasPSW
+//            storeFile keyfile
+//            storePassword keystorePSW
         }
     }
 
@@ -103,7 +103,7 @@ android {
     android.applicationVariants.all {
         variant ->
             variant.outputs.all {
-                outputFileName = "Easy earn" + "-" +
+                outputFileName = "KotlinDemo" + "-" +
                         buildType.name + "-v" + defaultConfig.versionName + "-" +
                         defaultConfig.versionCode + ".apk"
             }
