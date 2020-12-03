@@ -115,6 +115,24 @@ object HttpRequest {
                 .baseUrl(host)
                 // JSON解析
                 .addConverterFactory(GsonConverterFactory.create())
+                .callFactory {
+                    //完整的host可能被截取，此处用于替换为完整host
+                    val pathSegments: List<String> = HttpUrl.get(host).pathSegments()
+                    if (pathSegments.size > 1) {
+                        val completeUrl = HttpUrl.get(host).url().toString()
+                        val oldUrl = HttpUrl.get(host).scheme() + "://" + HttpUrl.get(host).host()
+                        // 找到 url 并且需要更改
+                        val url = it.url().toString()
+                        // 替换 url 并创建新的 call
+                        val newRequest: Request =
+                            it.newBuilder()
+                                .url(HttpUrl.get(url.replaceFirst(oldUrl, completeUrl)))
+                                .build()
+                        client.newCall(newRequest)
+                    } else {
+                        client.newCall(it)
+                    }
+                }
 
             if (GlobalConfig.gIsNeedChangeBaseUrl) {
                 if (!this::mBaseUrlMap.isInitialized) {
