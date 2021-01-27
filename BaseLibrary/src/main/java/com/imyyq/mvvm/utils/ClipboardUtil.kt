@@ -8,6 +8,8 @@ import com.imyyq.mvvm.app.BaseApp
 object ClipboardUtil {
 
     fun copy(text: String, toast: String? = null) {
+        if (text.isEmpty())
+            return
         val myClipboard: ClipboardManager =
             BaseApp.getInstance().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val myClip = ClipData.newPlainText("text", text)

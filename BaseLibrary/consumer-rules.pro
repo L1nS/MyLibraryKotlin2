@@ -89,3 +89,13 @@
 -keepclassmembers class com.imyyq.mvvm.base.ViewBindingBaseFragment {
      protected * mBinding;
 }
+
+#8946e35389f9a3c5e4ca6f88c28c82cc95964d2a
+#Alibaba Java Coding Guidelines
+#ADB Idea
+#GsonFormatPlus
+#JSON To Kotlin Class
+#OK!Gradle
+#Rainbow Brackets
+#Translation
+#Key Promoter X

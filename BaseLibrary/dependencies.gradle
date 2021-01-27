@@ -33,7 +33,7 @@ ext {
             slidingPaneLayout        : "androidx.slidingpanelayout:slidingpanelayout:1.1.0-rc01",
 
             paging                   : "androidx.paging:paging-runtime:2.1.2",
-            viewPager2               : "androidx.viewpager2:viewpager2:1.0.0",
+            viewPager2               : "androidx.viewpager2:viewpager2:1.1.0-alpha01",
 
             lifecycleJava8           : "androidx.lifecycle:lifecycle-common-java8:2.2.0",
             lifecycleProcess         : "androidx.lifecycle:lifecycle-process:2.2.0",
@@ -134,7 +134,7 @@ ext {
             //微信支付
             payWechat                : "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+",
             //视频播放
-            gsyVideoPlayer           : "com.shuyu:GSYVideoPlayer:7.1.4",
+            gsyVideoPlayer           : "com.shuyu:GSYVideoPlayer:8.0.0",
             //流布局
             flowlayout               : "com.hyman:flowlayout-lib:1.1.2"
     ]

@@ -55,7 +55,7 @@ object BitmapOptionsUtils {
      * @param path 照片路径
      * @return 角度
      */
-    fun readPictureDegree(path: String): Int {
+    fun readPictureDegree(path: String?): Int {
         var degree = 0
         try {
             val exifInterface = ExifInterface(path)

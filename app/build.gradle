@@ -28,7 +28,7 @@ android {
     compileSdkVersion SysConfig.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.lins.mykotlinlibrary2"
+        applicationId "com.lins.mykotlinlibrary"
         minSdkVersion SysConfig.minSdkVersion
         targetSdkVersion SysConfig.targetSdkVersion
         versionCode 1

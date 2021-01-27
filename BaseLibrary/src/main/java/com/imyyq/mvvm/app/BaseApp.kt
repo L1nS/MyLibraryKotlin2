@@ -17,9 +17,6 @@ open class BaseApp : Application() {
     companion object {
         private lateinit var app: Application
 
-        private var activityAccount = 0
-        var isForeground = true
-
         @JvmStatic
         fun initApp(app: Application) {
             Companion.app = app
@@ -31,8 +28,6 @@ open class BaseApp : Application() {
                     }
 
                     override fun onActivityStarted(activity: Activity) {
-                        activityAccount++
-                        isForeground = true
                     }
 
                     override fun onActivityDestroyed(activity: Activity) {
@@ -43,10 +38,6 @@ open class BaseApp : Application() {
                     }
 
                     override fun onActivityStopped(activity: Activity) {
-                        activityAccount--
-                        if (activityAccount == 0) {
-                            isForeground = false
-                        }
                     }
 
                     override fun onActivityCreated(
@@ -73,6 +64,7 @@ open class BaseApp : Application() {
          */
         fun clearUserInfo() {
             SPUtils.getInstance(GlobalConfig.spUserInfo).clear()
+            HttpRequest.addDefaultHeader("Authorization", "")
         }
     }
 

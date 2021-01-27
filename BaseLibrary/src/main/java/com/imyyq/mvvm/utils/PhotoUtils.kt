@@ -8,9 +8,9 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.OpenableColumns
+import androidx.annotation.IntRange
 import androidx.core.content.FileProvider
 import androidx.core.net.toFile
-import androidx.annotation.IntRange
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -268,7 +268,7 @@ class PhotoUtils {
                     REQUEST_CODE_CROP -> {
                         //裁剪
                         //把outUri转成
-                        val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             //把uri转成匿名uri
                             if (outUri?.scheme.equals(ContentResolver.SCHEME_FILE))
                                 FileProvider.getUriForFile(
@@ -282,7 +282,7 @@ class PhotoUtils {
                         cropCallback = null
                     }
                     REQUEST_CODE_CAMERA -> {
-                        val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             FileProvider.getUriForFile(
                                 requireContext(),
                                 authorities, File(cameraPath)

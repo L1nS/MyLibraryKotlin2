@@ -1,6 +1,5 @@
 package com.imyyq.mvvm.utils
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -11,9 +10,13 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
+
 object FileStoreUtils {
 
-    fun saveImageToGallery(bmp: Bitmap): Boolean {
+    fun saveImageToGallery(bmp: Bitmap?): Boolean {
+        if (bmp == null) {
+            return false
+        }
         val appDir =
             BaseApp.getInstance().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         if (!appDir!!.exists()) {
@@ -84,4 +87,6 @@ object FileStoreUtils {
             ""
         }
     }
+
+
 }

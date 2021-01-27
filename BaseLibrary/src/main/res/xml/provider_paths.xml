@@ -23,4 +23,11 @@
     <root-path
         name="root-path"
         path="" />
+    <!--友盟分享-->
+    <external-files-path
+        name="umeng_cache"
+        path="umeng_cache/" />
+    <root-path
+        name="opensdk_root"
+        path="" />
 </paths>

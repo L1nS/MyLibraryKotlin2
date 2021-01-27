@@ -1,7 +1,7 @@
 package com.imyyq.mvvm.http
 
 const val notHttpException = -100
-const val entityTokenTimeOut = 776
+const val entityTokenTimeOut = -1
 const val entityCodeNullable = -2
 const val entityNullable = -3
 

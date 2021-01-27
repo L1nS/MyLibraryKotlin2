@@ -22,7 +22,19 @@ object StringUtils {
     fun isPassword(str: String?): Boolean {
         if (TextUtils.isEmpty(str))
             return false
-        val pattern = Pattern.compile("^([A-Z]|[a-z]|[0-9]){6,16}\$")
+        val pattern = Pattern.compile("^([A-Z]|[a-z]|[0-9]){6,20}\$")
+        val matcher = pattern.matcher(str)
+        return matcher.matches()
+    }
+
+    /**
+     * 身份证号
+     *
+     * @param str
+     * @return
+     */
+    fun isIDCard(str: String?): Boolean {
+        val pattern = Pattern.compile("[\\d]{17}[0-9Xx]")
         val matcher = pattern.matcher(str)
         return matcher.matches()
     }

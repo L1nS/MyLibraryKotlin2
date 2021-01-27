@@ -19,10 +19,9 @@ object GlobalConfig {
     const val spUserInfo = "userInfo"
 
     const val spAppInfo ="appInfo"
+    const val BUS_TAG_TOKEN_TIMEOUT = -100//退出登录
 
-    const val BUS_TAG_TOKEN_TIMEOUT = 1
-
-    const val FILE_PROVIDER = "com.lins.mykotlinlibrary2.provider"
+    const val FILE_PROVIDER = "io.dcloud.H5EF06CD9.provider"
     /**
      * 加载中对话框是否可点击返回键隐藏对话框
      */

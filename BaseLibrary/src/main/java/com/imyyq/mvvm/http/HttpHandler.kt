@@ -46,9 +46,12 @@ object HttpHandler {
             // 失败了
             if (code == entityTokenTimeOut) {
                 //登录过期，清除登录数据，重置token
-                LiveDataBus.send(GlobalConfig.BUS_TAG_TOKEN_TIMEOUT,true)
+                BaseApp.clearUserInfo()
+                LiveDataBus.send(GlobalConfig.BUS_TAG_TOKEN_TIMEOUT, msg ?: "")
+                onFailed?.invoke(code, "")
+            } else {
+                onFailed?.invoke(code, msg)
             }
-            onFailed?.invoke(code, msg)
         }
     }
 

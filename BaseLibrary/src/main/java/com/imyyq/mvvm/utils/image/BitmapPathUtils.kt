@@ -4,14 +4,14 @@ import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Context
-import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
-import android.provider.BaseColumns
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import com.imyyq.mvvm.app.BaseApp
+import java.io.*
+
 
 object BitmapPathUtils {
 
@@ -62,10 +62,7 @@ object BitmapPathUtils {
                 } else {
                     return null
                 }
-                val selection = BaseColumns._ID + "=?"
-                val selectionArgs = arrayOf(divide[1])
-                filePath =
-                    getDataColumn(mediaUri, selection, selectionArgs)
+                filePath = getFileFromContentUri(mediaUri)
             } else if (isDownloadsDocument(uri)) { // DownloadsProvider
                 if (documentId.startsWith("raw:")) {
                     filePath = documentId.replaceFirst("raw:".toRegex(), "")
@@ -77,7 +74,7 @@ object BitmapPathUtils {
                             java.lang.Long.valueOf(documentId)
                         )
                     }
-                    filePath = getDataColumn(contentUri, null, null)
+                    filePath = getFileFromContentUri(contentUri)
                 }
             } else if (isExternalStorageDocument(uri)) {
                 val split = documentId.split(":".toRegex()).toTypedArray()
@@ -91,7 +88,7 @@ object BitmapPathUtils {
             }
         } else if (ContentResolver.SCHEME_CONTENT.equals(uri.scheme, ignoreCase = true)) {
             // 如果是 content 类型的 Uri
-            filePath = getDataColumn(uri, null, null)
+            filePath = getFileFromContentUri(uri)
         } else if (ContentResolver.SCHEME_FILE == uri.scheme) {
             // 如果是 file 类型的 Uri,直接获取图片对应的路径
             filePath = uri.path
@@ -112,7 +109,7 @@ object BitmapPathUtils {
         if (scheme == null) data = uri.path else if (ContentResolver.SCHEME_FILE == scheme) {
             data = uri.path
         } else if (ContentResolver.SCHEME_CONTENT == scheme) {
-            data = getDataColumn(uri, null, null)
+            data = getFileFromContentUri(uri)
         }
         return data
     }
@@ -122,30 +119,87 @@ object BitmapPathUtils {
      *
      * @return
      */
-    private fun getDataColumn(
-        uri: Uri,
-        selection: String?,
-        selectionArgs: Array<String>?
-    ): String? {
-        var path: String? = null
-        val projection = arrayOf(MediaStore.Images.Media.DATA)
-        var cursor: Cursor? = null
-        try {
-            cursor = BaseApp.getInstance().contentResolver.query(
-                uri,
-                projection,
-                selection,
-                selectionArgs,
-                null
-            )
-            if (cursor != null && cursor.moveToFirst()) {
-                val columnIndex = cursor.getColumnIndexOrThrow(projection[0])
-                path = cursor.getString(columnIndex)
-            }
-        } catch (e: Exception) {
-            cursor?.close()
+    private fun getFileFromContentUri(contentUri: Uri?): String? {
+        val context =BaseApp.getInstance().applicationContext
+        if (contentUri == null) {
+            return null
         }
-        return path
+        var file: File? = null
+        var filePath = ""
+        val fileName: String
+        val filePathColumn =
+            arrayOf(MediaStore.MediaColumns.DATA, MediaStore.MediaColumns.DISPLAY_NAME)
+        val contentResolver: ContentResolver = context.contentResolver
+        val cursor = contentResolver.query(
+            contentUri, filePathColumn, null,
+            null, null
+        )
+        if (cursor != null) {
+            cursor.moveToFirst()
+            try {
+                filePath = cursor.getString(cursor.getColumnIndex(filePathColumn[0]))
+            } catch (e: java.lang.Exception) {
+            }
+            fileName = cursor.getString(cursor.getColumnIndex(filePathColumn[1]))
+            cursor.close()
+            if (filePath.isNotEmpty()) {
+                file = File(filePath)
+            }
+            if (file == null || !file.exists() || file.length() <= 0 || filePath.isEmpty()) {
+                filePath = getPathFromInputStreamUri(context, contentUri, fileName)
+            }
+            if (filePath.isNotEmpty()) {
+                file = File(filePath)
+            }
+        }
+        return file?.absolutePath
+    }
+
+    private fun getPathFromInputStreamUri(context: Context, uri: Uri, fileName: String): String {
+        var inputStream: InputStream? = null
+        var filePath = ""
+        if (uri.authority != null) {
+            try {
+                inputStream = context.contentResolver.openInputStream(uri)
+                val file: File? = createTemporalFileFrom(context, inputStream, fileName)
+                filePath = file?.path.toString()
+            } catch (e: java.lang.Exception) {
+            } finally {
+                try {
+                    inputStream?.close()
+                } catch (e: java.lang.Exception) {
+                }
+            }
+        }
+        return filePath
+    }
+
+    private fun createTemporalFileFrom(
+        context: Context,
+        inputStream: InputStream?,
+        fileName: String
+    ): File? {
+        var targetFile: File? = null
+        if (inputStream != null) {
+            var read: Int
+            val buffer = ByteArray(8 * 1024)
+            //自己定义拷贝文件路径
+            targetFile = File(context.externalCacheDir!!.absolutePath, fileName)
+            if (targetFile.exists()) {
+                targetFile.delete()
+            }
+            val outputStream: OutputStream = FileOutputStream(targetFile)
+            while (inputStream.read(buffer).also { read = it } != -1) {
+                outputStream.write(buffer, 0, read)
+            }
+            outputStream.flush()
+            try {
+                outputStream.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+        return targetFile
     }
 
     /**
@@ -167,4 +221,6 @@ object BitmapPathUtils {
     private fun isExternalStorageDocument(uri: Uri): Boolean {
         return "com.android.externalstorage.documents" == uri.authority
     }
+
+
 }

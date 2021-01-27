@@ -78,6 +78,8 @@ object ToastUtil {
     }
 
     private fun showToast(msg: String, duration: Int) {
+        if (msg.isEmpty())
+            return
         val toast = Toast.makeText(BaseApp.getInstance(), msg, duration)
         toast.setGravity(mGravity!!, xOffset!!, yOffset!!)
         toast.show()

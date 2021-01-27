@@ -24,7 +24,6 @@ object MathUtils {
         if (v2 == 0) return v1.toString()
         val b1 = BigDecimal(v1.toString())
         val b2 = BigDecimal(v2.toString())
-        LogUtil.e(b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP))
         return b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).toString()
     }
 }

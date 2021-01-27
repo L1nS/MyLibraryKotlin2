@@ -1,5 +1,7 @@
 package com.imyyq.mvvm.utils
 
+import android.content.res.Resources
+import android.util.TypedValue
 import com.imyyq.mvvm.app.BaseApp
 
 object DensityUtil {
@@ -8,8 +10,11 @@ object DensityUtil {
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
     fun dp2px(dpValue: Float): Int {
-        val scale = BaseApp.getInstance().resources.displayMetrics.density
-        return (dpValue * scale + 0.5f).toInt()
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dpValue,
+            Resources.getSystem().displayMetrics
+        ).toInt()
     }
 
     /**

@@ -72,6 +72,11 @@ object HttpRequest {
         mDefaultHeader[name] = value
     }
 
+    fun resetBaseUrl(url: String) {
+        mDefaultBaseUrl = url
+        mServiceMap.clear()
+    }
+
     /**
      * 如果有不同的 baseURL，那么可以相同 baseURL 的接口都放在一个 Service 钟，通过此方法来获取
      */
@@ -116,7 +121,6 @@ object HttpRequest {
                 // JSON解析
                 .addConverterFactory(GsonConverterFactory.create())
                 .callFactory {
-                    //完整的host可能被截取，此处用于替换为完整host
                     val pathSegments: List<String> = HttpUrl.get(host).pathSegments()
                     if (pathSegments.size > 1) {
                         val completeUrl = HttpUrl.get(host).url().toString()
@@ -132,6 +136,7 @@ object HttpRequest {
                     } else {
                         client.newCall(it)
                     }
+
                 }
 
             if (GlobalConfig.gIsNeedChangeBaseUrl) {
@@ -147,7 +152,17 @@ object HttpRequest {
                 }
 
                 builder.callFactory {
+                    LogUtil.i("HttpRequest", "host:  $host")
                     LogUtil.i("HttpRequest", "getService: old ${it.url()}")
+                    val pathSegments: List<String> = HttpUrl.get(host).pathSegments()
+                    LogUtil.i("=======", "url:${HttpUrl.get(host).url()}")
+                    LogUtil.i("=======", "url:${HttpUrl.get(host).host()}")
+//                    if ("" != pathSegments[pathSegments.size - 1]){
+//
+//                    }
+                    pathSegments.forEach {
+                        LogUtil.i("========", "host:  $it")
+                    }
                     mBaseUrlMap.forEach { entry ->
                         val key = entry.key
                         var value = entry.value

@@ -8,7 +8,7 @@ import java.util.*
  * Created by 杨永青 on 16/9/14.
  */
 object DateUtil {
-    private const val YMDHM_ = "yyyy-MM-dd HH:mm"
+    const val YMDHM_ = "yyyy-MM-dd HH:mm"
     const val HM = "HH:mm"
     const val YMDHMS_ = "yyyy-MM-dd HH:mm:ss"
     const val YMDHMS_SSS = "yyyy-MM-dd HH:mm:ss.SSS"
@@ -107,19 +107,6 @@ object DateUtil {
             "0${sec}秒"
         else
             "${sec}秒"
-    }
-
-    fun getHhMmSs_cn(diff: Long,hh:String,mm:String,ss:String): String {
-        val hour = diff / (60 * 1000 * 60)
-        val min = diff / (60 * 1000) - hour * 60
-        val sec = diff / 1000 - hour * 60 * 60 - min * 60
-        return "${hour}$hh" + (if (min < 10)
-            "0$min"
-        else
-            min) + mm + if (sec < 10)
-            "0${sec}$ss"
-        else
-            "${sec}$ss"
     }
 
     fun getDdHhMmSs(diff: Long): String {

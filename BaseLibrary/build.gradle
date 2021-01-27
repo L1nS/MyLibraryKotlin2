@@ -109,12 +109,12 @@ dependencies {
     api Deps.photoView
     //权限申请
     api Deps.permissionX
-    //侧滑列表
-    api Deps.sideslipRecyclerView
     //微信支付
 //    api Deps.payWechat
-//    //视频播放
-//    api Deps.gsyVideoPlayer
+    //侧滑列表
+    api Deps.sideslipRecyclerView
+    //视频播放
+    api Deps.gsyVideoPlayer
     //流布局
     api Deps.flowlayout
 
