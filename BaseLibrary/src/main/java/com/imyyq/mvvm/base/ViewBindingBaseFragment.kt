@@ -98,41 +98,6 @@ abstract class ViewBindingBaseFragment<V : ViewBinding, VM : BaseViewModel<out B
     }
 
     final override fun initUiChangeLiveData() {
-        if (isViewModelNeedStartAndFinish()) {
-            mViewModel.mUiChangeLiveData.initStartAndFinishEvent()
-
-            // vm 可以结束界面
-            mViewModel.mUiChangeLiveData.finishEvent?.observe(this, Observer { activity?.finish() })
-            // vm 可以启动界面
-            mViewModel.mUiChangeLiveData.startActivityEvent?.observe(this, Observer {
-                val intent = Intent(activity, it)
-                startActivity(intent)
-            })
-            // vm 可以启动界面，并携带 Bundle，接收方可调用 getBundle 获取
-            mViewModel.mUiChangeLiveData.startActivityEventWithBundle?.observe(this, Observer {
-                val intent = Intent(activity, it?.first)
-                it?.second?.let { bundle -> intent.putExtras(bundle) }
-                startActivity(intent)
-            })
-        }
-        if (isViewModelNeedStartForResult()) {
-            mViewModel.mUiChangeLiveData.initStartActivityForResultEvent()
-
-            // vm 可以启动界面
-            mViewModel.mUiChangeLiveData.startActivityForResultEvent?.observe(this, Observer {
-                initStartActivityForResult()
-                val intent = Intent(activity, it)
-                mStartActivityForResult.launch(intent)
-            })
-            // vm 可以启动界面，并携带 Bundle，接收方可调用 getBundle 获取
-            mViewModel.mUiChangeLiveData.startActivityForResultEventWithBundle?.observe(this, Observer {
-                initStartActivityForResult()
-                val intent = Intent(activity, it?.first)
-                it?.second?.let { bundle -> intent.putExtras(bundle) }
-                mStartActivityForResult.launch(intent)
-            })
-        }
-
         if (isNeedLoadingDialog()) {
             mViewModel.mUiChangeLiveData.initLoadingDialogEvent()
 
@@ -167,30 +132,6 @@ abstract class ViewBindingBaseFragment<V : ViewBinding, VM : BaseViewModel<out B
                         }
                     }
                 }
-        }
-    }
-
-    /**
-     * CallSuper 要求子类必须调用 super
-     */
-    @CallSuper
-    override fun initData() {
-        // 只有目标不为空的情况才有实例化的必要
-        if (getLoadSirTarget() != null) {
-            mLoadService = LoadSir.getDefault().register(
-                getLoadSirTarget()
-            ) { onLoadSirReload() }
-
-            mViewModel.mUiChangeLiveData.initLoadSirEvent()
-            mViewModel.mUiChangeLiveData.loadSirEvent?.observe(this, Observer {
-                if (it == null) {
-                    mLoadService.showSuccess()
-                    onLoadSirSuccess()
-                } else {
-                    mLoadService.showCallback(it)
-                    onLoadSirShowed(it)
-                }
-            })
         }
     }
 

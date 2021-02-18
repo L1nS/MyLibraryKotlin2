@@ -206,59 +206,6 @@ open class BaseViewModel<M : BaseModel>(app: Application) : AndroidViewModel(app
         mUiChangeLiveData.dismissLoadingDialogEvent?.call()
     }
 
-    // 以下是内嵌加载中布局相关的 =========================================================
-
-    @MainThread
-    protected fun showLoadSirSuccess() {
-        CheckUtil.checkLoadSirEvent(mUiChangeLiveData.loadSirEvent)
-        mUiChangeLiveData.loadSirEvent?.value = null
-    }
-
-    @MainThread
-    protected fun showLoadSir(clz: Class<out Callback>) {
-        CheckUtil.checkLoadSirEvent(mUiChangeLiveData.loadSirEvent)
-        mUiChangeLiveData.loadSirEvent?.value = clz
-    }
-
-    // 以下是界面开启和结束相关的 =========================================================
-
-    @MainThread
-    protected fun finish() {
-        CheckUtil.checkStartAndFinishEvent(mUiChangeLiveData.finishEvent)
-        mUiChangeLiveData.finishEvent?.call()
-    }
-
-    @MainThread
-    protected fun startActivity(clazz: Class<out Activity>) {
-        CheckUtil.checkStartAndFinishEvent(mUiChangeLiveData.startActivityEvent)
-        mUiChangeLiveData.startActivityEvent?.value = clazz
-    }
-
-    @MainThread
-    protected fun startActivity(clazz: Class<out Activity>, map: Map<String, *>) {
-        CheckUtil.checkStartAndFinishEvent(mUiChangeLiveData.startActivityWithMapEvent)
-        mUiChangeLiveData.startActivityWithMapEvent?.value = Pair(clazz, map)
-    }
-
-    @MainThread
-    protected fun startActivity(clazz: Class<out Activity>, bundle: Bundle?) {
-        CheckUtil.checkStartAndFinishEvent(mUiChangeLiveData.startActivityEventWithBundle)
-        mUiChangeLiveData.startActivityEventWithBundle?.value = Pair(clazz, bundle)
-    }
-
-    @MainThread
-    protected fun startActivityForResult(clazz: Class<out Activity>) {
-        CheckUtil.checkStartForResultEvent(mUiChangeLiveData.startActivityForResultEvent)
-        mUiChangeLiveData.startActivityForResultEvent?.value = clazz
-    }
-
-    @MainThread
-    protected fun startActivityForResult(clazz: Class<out Activity>, bundle: Bundle?) {
-        CheckUtil.checkStartForResultEvent(mUiChangeLiveData.startActivityForResultEventWithBundle)
-        mUiChangeLiveData.startActivityForResultEventWithBundle?.value = Pair(clazz, bundle)
-    }
-
-
     // ===================================================================================
 
     /**
@@ -268,36 +215,9 @@ open class BaseViewModel<M : BaseModel>(app: Application) : AndroidViewModel(app
         var showLoadingDialogEvent: SingleLiveEvent<String?>? = null
         var dismissLoadingDialogEvent: SingleLiveEvent<Any?>? = null
 
-        var startActivityEvent: SingleLiveEvent<Class<out Activity>>? = null
-        var startActivityWithMapEvent: SingleLiveEvent<Pair<Class<out Activity>, Map<String, *>>>? = null
-        var startActivityEventWithBundle: SingleLiveEvent<Pair<Class<out Activity>, Bundle?>>? = null
-
-        var startActivityForResultEvent: SingleLiveEvent<Class<out Activity>>? = null
-        var startActivityForResultEventWithBundle: SingleLiveEvent<Pair<Class<out Activity>, Bundle?>>? = null
-
-        var finishEvent: SingleLiveEvent<Any?>? = null
-
-        var loadSirEvent: SingleLiveEvent<Class<out Callback>?>? = null
-
-        fun initLoadSirEvent() {
-            loadSirEvent = SingleLiveEvent()
-        }
-
         fun initLoadingDialogEvent() {
             showLoadingDialogEvent = SingleLiveEvent()
             dismissLoadingDialogEvent = SingleLiveEvent()
-        }
-
-        fun initStartActivityForResultEvent() {
-            startActivityForResultEvent = SingleLiveEvent()
-            startActivityForResultEventWithBundle = SingleLiveEvent()
-        }
-
-        fun initStartAndFinishEvent() {
-            startActivityEvent = SingleLiveEvent()
-            startActivityWithMapEvent = SingleLiveEvent()
-            startActivityEventWithBundle = SingleLiveEvent()
-            finishEvent = SingleLiveEvent()
         }
     }
 

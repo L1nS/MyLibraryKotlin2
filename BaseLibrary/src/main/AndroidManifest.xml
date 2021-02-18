@@ -19,7 +19,7 @@
         <meta-data android:name="isRetrofitUseRx" android:value="${isRetrofitUseRx}"/>
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="io.dcloud.H5EF06CD9.provider"
+            android:authorities="com.lins.mykotlinlibrary.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
