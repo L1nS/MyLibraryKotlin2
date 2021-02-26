@@ -3,6 +3,7 @@ package com.lins.mykotlinlibrary
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.lins.mykotlinlibrary.ui.hencoder.HenCoderActivity
 import com.lins.mykotlinlibrary.ui.sms.SmsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -17,6 +18,9 @@ class MainActivity : AppCompatActivity() {
     private fun initListener() {
         id_btn_sms.setOnClickListener {
             startActivity(Intent(this, SmsActivity::class.java))
+        }
+        id_btn_henCoder.setOnClickListener {
+            startActivity(Intent(this, HenCoderActivity::class.java))
         }
     }
 }
