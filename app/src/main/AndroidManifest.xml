@@ -23,6 +23,8 @@
         </activity>
         <activity android:name=".ui.sms.SmsActivity" />
         <activity android:name=".ui.hencoder.HenCoderActivity" />
+        <activity android:name=".ui.layout.LayoutActivity" />
+        <activity android:name=".ui.layout.slide.SlidingVerticalLayoutActivity" />
     </application>
 
 </manifest>

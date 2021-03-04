@@ -27,5 +27,14 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:text="HenCoder" />
+
+        <Button
+            android:id="@+id/id_btn_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:text="Layout" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
