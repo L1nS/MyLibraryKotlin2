@@ -14,6 +14,4 @@ import kotlinx.android.synthetic.main.activity_hen_coder.*
 class HenCoderActivity :
     DataBindingBaseActivity<ActivityHenCoderBinding, NoViewModel>(R.layout.activity_hen_coder) {
 
-    override fun initListener() {
-    }
 }

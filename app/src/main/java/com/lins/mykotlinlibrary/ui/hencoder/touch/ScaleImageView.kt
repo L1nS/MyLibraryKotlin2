@@ -1,4 +1,4 @@
-package com.lins.mykotlinlibrary.ui.hencoder.view
+package com.lins.mykotlinlibrary.ui.hencoder.touch
 
 import android.animation.ObjectAnimator
 import android.content.Context

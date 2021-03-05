@@ -5,8 +5,7 @@
 
     </data>
 
-    <com.lins.mykotlinlibrary.ui.hencoder.view.ScaleImageView
-        android:id="@+id/id_s_img"
+    <com.lins.mykotlinlibrary.ui.hencoder.touch.MultiTouchView3
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </layout>
