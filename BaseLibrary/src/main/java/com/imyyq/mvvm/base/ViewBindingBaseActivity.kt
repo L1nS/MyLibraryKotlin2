@@ -24,7 +24,7 @@ import java.io.Serializable
  */
 abstract class ViewBindingBaseActivity<V : ViewBinding, VM : BaseViewModel<out BaseModel>> :
     ParallaxSwipeBackActivity(),
-    IView<V, VM>, ILoadingDialog, ILoading, IActivityResult, IArgumentsFromIntent, View.OnClickListener {
+    IView<V, VM>, ILoadingDialog,IActivityResult, IArgumentsFromIntent, View.OnClickListener {
 
     protected lateinit var mBinding: V
     protected lateinit var mViewModel: VM

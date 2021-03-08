@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 abstract class ViewBindingBaseFragment<V : ViewBinding, VM : BaseViewModel<out BaseModel>> :
     Fragment(),
-    IView<V, VM>, ILoadingDialog, ILoading, IActivityResult {
+    IView<V, VM>, ILoadingDialog, IActivityResult {
 
     protected lateinit var mBinding: V
     protected lateinit var mViewModel: VM
