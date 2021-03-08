@@ -26,5 +26,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+        <service
+            android:name=".utils.download.DownloadService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 </manifest>
