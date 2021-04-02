@@ -126,14 +126,6 @@ dependencies {
         compileOnly Deps.lifecycleProcess
     }
 
-    // 内嵌的加载中库
-    checkMVVMConfigProperty(IncludeLib.loadSir, "loadSir")
-    if (IncludeLib.loadSir) {
-        api Deps.loadSir
-    } else {
-        compileOnly Deps.loadSir
-    }
-
     // RecyclerView
     checkMVVMConfigProperty(IncludeLib.recyclerView, "recyclerView")
     if (IncludeLib.recyclerView) {

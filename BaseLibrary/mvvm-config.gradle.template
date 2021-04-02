@@ -27,9 +27,6 @@ ext {
             // 权限申请
             livePermissions   : false,
 
-            // 内嵌加载中
-            loadSir           : false,
-
             rxJava2           : false
     ]
 

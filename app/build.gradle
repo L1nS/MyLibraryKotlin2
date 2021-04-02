@@ -38,7 +38,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             //APP的build.gradle设置支持的SO库架构
-            abiFilters 'armeabi', 'armeabi-v7a'/*, 'x86'*/
+            abiFilters 'armeabi', 'armeabi-v7a', 'x86'
         }
     }
     // Gradle Plugin 4.0 及以上,其中 viewBinding 是你有不需要用 DataBinding 的类时，才需要开启，

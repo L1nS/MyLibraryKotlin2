@@ -81,7 +81,7 @@ object ToastUtil {
         if (msg.isEmpty())
             return
         val toast = Toast.makeText(BaseApp.getInstance(), msg, duration)
-        toast.setGravity(mGravity!!, xOffset!!, yOffset!!)
+        toast.setGravity(mGravity, xOffset!!, yOffset!!)
         toast.show()
     }
 
@@ -116,7 +116,7 @@ object ToastUtil {
         }
         showCustomToast(
             msg, mCustomLayout, mCustomMsgId, length,
-            mGravity!!, xOffset!!, yOffset!!
+            mGravity, xOffset!!, yOffset!!
         )
     }
 

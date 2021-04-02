@@ -16,6 +16,8 @@ import java.lang.reflect.Type
  * V 层，这里的视图都是 Activity 或 Fragment
  */
 interface IView<V : ViewBinding, VM : BaseViewModel<out BaseModel>> : IArgumentsFromBundle {
+
+    fun initBeforeSetContentView(){}
     /**
      * 初始化外部传进来的参数
      */
@@ -35,6 +37,11 @@ interface IView<V : ViewBinding, VM : BaseViewModel<out BaseModel>> : IArguments
      * 初始化数据
      */
     fun initData() {}
+
+    /**
+     * 懒加载数据
+     */
+    fun initLazyData(){}
 
     /**
      * 初始化界面观察者

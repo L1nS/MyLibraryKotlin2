@@ -2,9 +2,12 @@
 <resources>
 
     <color name="colorStatusBar">#FFFFFF</color>
+    <color name="colorTransparent">#00000000</color>
 
+    <color name="colorAppBg">#F2F2F2</color>
     <color name="colorNavBar">#FFFFFF</color>
 
     <color name="colorLoading">#33A9E1</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorTextLoading">#A4B3CC</color>
 </resources>

@@ -111,14 +111,6 @@ abstract class ParallaxSwipeBackActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * 由于要实现侧滑， windowIsTranslucent 必须为 true，但是设置为 true 后，activity 就相当于半透明的效果了。
-     * 因此，在此activity之下的activity，并不会走 onStop
-     */
-    override fun onStop() {
-        super.onStop()
-    }
-
     override fun setContentView(
         v: View,
         params: ViewGroup.LayoutParams

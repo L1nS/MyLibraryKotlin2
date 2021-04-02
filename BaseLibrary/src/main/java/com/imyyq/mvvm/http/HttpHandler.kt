@@ -22,18 +22,18 @@ object HttpHandler {
         entity: IBaseResponse<T?>?,
         onSuccess: (() -> Unit)? = null,
         onResult: ((t: T) -> Unit),
-        onFailed: ((code: Int, msg: String?) -> Unit)? = null
+        onFailed: ((code: Int, msg: String?,isHttpError:Boolean) -> Unit)? = null
     ) {
         // 防止实体为 null
         if (entity == null) {
-            onFailed?.invoke(entityNullable, msgEntityNullable)
+            onFailed?.invoke(entityNullable, msgEntityNullable,true)
             return
         }
         val code = entity.code()
         val msg = entity.msg()
         // 防止状态码为 null
         if (code == null) {
-            onFailed?.invoke(entityCodeNullable, msgEntityCodeNullable)
+            onFailed?.invoke(entityCodeNullable, msgEntityCodeNullable,false)
             return
         }
         // 请求成功
@@ -48,9 +48,9 @@ object HttpHandler {
                 //登录过期，清除登录数据，重置token
                 BaseApp.clearUserInfo()
                 LiveDataBus.send(GlobalConfig.BUS_TAG_TOKEN_TIMEOUT, msg ?: "")
-                onFailed?.invoke(code, "")
+                onFailed?.invoke(code, "",false)
             } else {
-                onFailed?.invoke(code, msg)
+                onFailed?.invoke(code, msg,false)
             }
         }
     }
@@ -67,20 +67,21 @@ object HttpHandler {
      */
     fun handleException(
         e: Exception,
-        onFailed: (code: Int, msg: String?) -> Unit
+        onFailed: (code: Int, msg: String?,isHttpError:Boolean) -> Unit
     ) {
         if (BuildConfig.DEBUG) {
             e.printStackTrace()
         }
         return if (e is HttpException) {
-            onFailed(e.code(), e.message())
+            onFailed(e.code(), e.message(),true)
         } else if (e is JsonSyntaxException) {
-            onFailed(notHttpException, "数据解析出错")
+            onFailed(notHttpException, "数据解析出错",false)
         } else {
             val log = LogUtil.getStackTraceString(e)
             onFailed(
                 notHttpException,
-                "网络请求发生错误"
+                "网络请求发生错误",
+                true
             )
             LogUtil.e(
                 "HTTP_LOG",

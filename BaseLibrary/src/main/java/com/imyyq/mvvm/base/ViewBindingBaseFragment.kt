@@ -14,8 +14,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.viewbinding.ViewBinding
 import com.imyyq.mvvm.widget.CustomLayoutDialog
-import com.kingja.loadsir.core.LoadService
-import com.kingja.loadsir.core.LoadSir
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -30,7 +28,6 @@ abstract class ViewBindingBaseFragment<V : ViewBinding, VM : BaseViewModel<out B
 
     private val mLoadingDialog by lazy { CustomLayoutDialog(requireActivity(), loadingDialogLayout()) }
 
-    private lateinit var mLoadService: LoadService<*>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +40,7 @@ abstract class ViewBindingBaseFragment<V : ViewBinding, VM : BaseViewModel<out B
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initBeforeSetContentView()
         initViewAndViewModel()
         initParam()
         initView()

@@ -37,7 +37,6 @@ object ScreenUtils {
         get() {
             val wm = getInstance()
                 .getSystemService(Context.WINDOW_SERVICE) as WindowManager
-                ?: return -1
             val point = Point()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 wm.defaultDisplay.getRealSize(point)
@@ -56,7 +55,6 @@ object ScreenUtils {
         get() {
             val wm = getInstance()
                 .getSystemService(Context.WINDOW_SERVICE) as WindowManager
-                ?: return -1
             val point = Point()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 wm.defaultDisplay.getRealSize(point)
@@ -75,7 +73,6 @@ object ScreenUtils {
         get() {
             val wm = getInstance()
                 .getSystemService(Context.WINDOW_SERVICE) as WindowManager
-                ?: return -1
             val point = Point()
             wm.defaultDisplay.getSize(point)
             return point.x
@@ -90,7 +87,6 @@ object ScreenUtils {
         get() {
             val wm = getInstance()
                 .getSystemService(Context.WINDOW_SERVICE) as WindowManager
-                ?: return -1
             val point = Point()
             wm.defaultDisplay.getSize(point)
             return point.y
@@ -259,7 +255,6 @@ object ScreenUtils {
         get() {
             val km = getInstance()
                 .getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-                ?: return false
             return km.inKeyguardRestrictedInputMode()
         }
 

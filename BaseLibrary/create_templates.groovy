@@ -31,7 +31,7 @@ class Main {
     String mAbsolutePath = "E:\\Projects\\MVVMArchitectureTest\\app\\src\\main\\java\\com\\test\\mvvmarchitecturetest"
 
     // TODO 应用的包名，即 build.gradle 中的 applicationId
-    String mPackageName = "com.test.mvvmarchitecturetest"
+    String mPackageName = "info.studytour.studentport"
     // TODO 通常和应用包名一致，即上面的路径 com.test.mvvmarchitecturetest，如果你的目录结构和包名不一致就需要改
     String mRootPackage = "${mPackageName}"
     // TODO 框架的包名，框架默认是 com.imyyq.mvvm，如果你修改了，也要同步改

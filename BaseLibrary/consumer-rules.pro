@@ -78,18 +78,6 @@
 
 ##---------------End: proguard configuration for Gson  ----------
 
-# ====================================================== LoadSir
--dontwarn com.kingja.loadsir.**
--keep class com.kingja.loadsir.** {*;}
-
--dontwarn androidx.navigation.**
--keep class androidx.navigation.** {*;}
-
-# Fragment 的 mBinding 变量不要混淆，因为要手动反射设置为 null
--keepclassmembers class com.imyyq.mvvm.base.ViewBindingBaseFragment {
-     protected * mBinding;
-}
-
 #8946e35389f9a3c5e4ca6f88c28c82cc95964d2a
 #Alibaba Java Coding Guidelines
 #ADB Idea
@@ -99,3 +87,5 @@
 #Rainbow Brackets
 #Translation
 #Key Promoter X
+#Codota
+#Name That Color

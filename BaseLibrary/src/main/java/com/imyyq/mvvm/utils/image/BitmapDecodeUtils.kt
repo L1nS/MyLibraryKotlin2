@@ -118,7 +118,7 @@ object BitmapDecodeUtils {
     /**
      *
     override fun onCreate(savedInstanceState: Bundle?) {
-    /*在android5.0及以上版本使用webView进行截长图时,默认是截取可是区域内的内容.因此需要在支撑窗体内容之前加上*/
+    在android5.0及以上版本使用webView进行截长图时,默认是截取可是区域内的内容.因此需要在支撑窗体内容之前加上
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
     WebView.enableSlowWholeDocumentDraw()
     }
@@ -126,10 +126,7 @@ object BitmapDecodeUtils {
     }
 
     if (FileStoreUtils.saveImageToGallery(BitmapDecodeUtils.getBitmapFromWebView(mBinding.idWebview))) {
-    /*重新加载页面*/
-    finish()
-    startActivity(intent)
-    }
+    重新加载页面
      */
     fun getBitmapFromWebView(webView: WebView): Bitmap? {
         return try {

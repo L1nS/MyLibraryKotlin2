@@ -15,16 +15,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.viewbinding.ViewBinding
 import com.imyyq.mvvm.widget.CustomLayoutDialog
-import com.kingja.loadsir.core.LoadService
-import com.kingja.loadsir.core.LoadSir
-import java.io.Serializable
 
 /**
  * 通过构造函数和泛型，完成 view 的初始化和 vm 的初始化，并且将它们绑定，
  */
 abstract class ViewBindingBaseActivity<V : ViewBinding, VM : BaseViewModel<out BaseModel>> :
     ParallaxSwipeBackActivity(),
-    IView<V, VM>, ILoadingDialog,IActivityResult, IArgumentsFromIntent, View.OnClickListener {
+    IView<V, VM>, ILoadingDialog, IActivityResult, IArgumentsFromIntent, View.OnClickListener {
 
     protected lateinit var mBinding: V
     protected lateinit var mViewModel: VM
@@ -33,7 +30,7 @@ abstract class ViewBindingBaseActivity<V : ViewBinding, VM : BaseViewModel<out B
 
     private val mLoadingDialog by lazy { CustomLayoutDialog(this, loadingDialogLayout()) }
 
-    private lateinit var mLoadService: LoadService<*>
+    fun getLoadingDialog() = mLoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +39,7 @@ abstract class ViewBindingBaseActivity<V : ViewBinding, VM : BaseViewModel<out B
         }
 
         mBinding = initBinding(layoutInflater, null)
+        initBeforeSetContentView()
         initViewAndViewModel()
         initParam()
         initView()
@@ -50,6 +48,7 @@ abstract class ViewBindingBaseActivity<V : ViewBinding, VM : BaseViewModel<out B
         initViewObservable()
         initData()
     }
+
 
     abstract override fun initBinding(inflater: LayoutInflater, container: ViewGroup?): V
 

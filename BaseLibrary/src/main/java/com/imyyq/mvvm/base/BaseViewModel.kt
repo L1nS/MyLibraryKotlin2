@@ -1,6 +1,5 @@
 package com.imyyq.mvvm.base
 
-import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
@@ -12,9 +11,7 @@ import com.imyyq.mvvm.R
 import com.imyyq.mvvm.app.CheckUtil
 import com.imyyq.mvvm.app.RepositoryManager
 import com.imyyq.mvvm.http.HttpHandler
-import com.imyyq.mvvm.utils.LogUtil
 import com.imyyq.mvvm.utils.SingleLiveEvent
-import com.kingja.loadsir.callback.Callback
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.*
@@ -64,7 +61,7 @@ open class BaseViewModel<M : BaseModel>(app: Application) : AndroidViewModel(app
         block: suspend CoroutineScope.() -> IBaseResponse<T?>?,
         onSuccess: (() -> Unit)? = null,
         onResult: ((t: T) -> Unit),
-        onFailed: ((code: Int, msg: String?) -> Unit)? = null,
+        onFailed: ((code: Int, msg: String?,isHttpError:Boolean) -> Unit)? = null,
         onComplete: (() -> Unit)? = null
     ) {
         initCoroutineScope()
@@ -83,7 +80,7 @@ open class BaseViewModel<M : BaseModel>(app: Application) : AndroidViewModel(app
     fun <T> launch2(
         block: suspend CoroutineScope.() -> T,
         onResult: ((t: T) -> Unit),
-        onFailed: ((code: Int, msg: String?) -> Unit)? = null,
+        onFailed: ((code: Int, msg: String?,isHttpError:Boolean?) -> Unit)? = null,
         onComplete: (() -> Unit)? = null
     ) {
         initCoroutineScope()

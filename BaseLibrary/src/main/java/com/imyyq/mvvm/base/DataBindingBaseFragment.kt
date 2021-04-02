@@ -12,6 +12,9 @@ abstract class DataBindingBaseFragment<V : ViewDataBinding, VM : BaseViewModel<o
     private val varViewModelId: Int? = null
 ) : ViewBindingBaseFragment<V, VM>(),View.OnClickListener {
 
+    private var isFirstLoad = true
+    var openLazy = false
+
     final override fun initBinding(inflater: LayoutInflater, container: ViewGroup?): V =
         DataBindingUtil.inflate(inflater, layoutId, container, false)
 
@@ -32,5 +35,13 @@ abstract class DataBindingBaseFragment<V : ViewDataBinding, VM : BaseViewModel<o
     }
 
     override fun onClick(v: View?) {
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (openLazy && isFirstLoad) {
+            initLazyData()
+            isFirstLoad = false
+        }
     }
 }

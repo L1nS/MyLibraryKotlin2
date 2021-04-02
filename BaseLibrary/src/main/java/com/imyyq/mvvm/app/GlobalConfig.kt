@@ -3,8 +3,6 @@ package com.imyyq.mvvm.app
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import com.imyyq.mvvm.R
-import com.kingja.loadsir.callback.Callback
-import com.kingja.loadsir.core.LoadSir
 
 
 /**
@@ -21,7 +19,7 @@ object GlobalConfig {
     const val spAppInfo ="appInfo"
     const val BUS_TAG_TOKEN_TIMEOUT = -100//退出登录
 
-    const val FILE_PROVIDER = "com.lins.mykotlinlibrary.provider"
+    const val FILE_PROVIDER = "com.lins.mykotlinlibrary.app.provider"
     /**
      * 加载中对话框是否可点击返回键隐藏对话框
      */

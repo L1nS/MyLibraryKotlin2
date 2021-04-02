@@ -28,6 +28,25 @@ object StringUtils {
     }
 
     /**
+     * 6-20位密码,包含数字和字母
+     */
+    fun isPasswordContainLetterAndDigital(str: String?): Boolean {
+        if (str.isNullOrEmpty())
+            return false
+        var isDigit = false
+        var isLetter = false
+        str.forEach {
+            if (Character.isDigit(it))
+                isDigit = true
+            else if (Character.isLetter(it))
+                isLetter = true
+        }
+        val pattern = Pattern.compile("^([A-Za-z0-9]){6,20}\$")
+        val matcher = pattern.matcher(str)
+        return isDigit && isLetter && matcher.matches()
+    }
+
+    /**
      * 身份证号
      *
      * @param str

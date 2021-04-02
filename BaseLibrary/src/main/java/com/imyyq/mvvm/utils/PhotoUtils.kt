@@ -157,7 +157,7 @@ class PhotoUtils {
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-            setRetainInstance(true)
+            retainInstance = true
         }
 
 
@@ -229,7 +229,7 @@ class PhotoUtils {
                     )
                 )
                 requireContext().grantUriPermission(
-                    requireContext().getPackageName(),
+                    requireContext().packageName,
                     outUri,
                     Intent.FLAG_GRANT_READ_URI_PERMISSION
                 )

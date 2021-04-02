@@ -57,9 +57,25 @@ object InputMethodUtil {
      * 禁止EditText输入空格
      * @param editText
      */
-    fun setEditTextInhibitInputSpace(editText: EditText) {
+    fun setEditTextInhibitInputSpace(editText: EditText, maxLength: Int? = null) {
+        val filterList = mutableListOf<InputFilter>()
         val filter =
             InputFilter { source, start, end, dest, dstart, dend -> if (source == " ") "" else null }
-        editText.filters = arrayOf(filter)
+        filterList.add(filter)
+        if (maxLength != null) {
+            filterList.add(InputFilter.LengthFilter(maxLength))
+        }
+        editText.filters = filterList.toTypedArray()
+
+    }
+
+    /**
+     * 设置长度
+     */
+    fun setEditTextMaxLength(editText: EditText, maxLength: Int) {
+        val filterList = mutableListOf<InputFilter>()
+        filterList.add(InputFilter.LengthFilter(maxLength))
+        editText.filters = filterList.toTypedArray()
+
     }
 }
