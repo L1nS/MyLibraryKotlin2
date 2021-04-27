@@ -20,8 +20,9 @@
         <item name="android:insetBottom">0dp</item>
     </style>
 
-    <style name="TransactionBG" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="TransactionBG" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!--状态栏透明-->
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowNoTitle">true</item>
         <!--   <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>-->
         <item name="android:windowIsTranslucent">true</item>

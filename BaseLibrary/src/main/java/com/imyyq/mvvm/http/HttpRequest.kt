@@ -59,7 +59,7 @@ object HttpRequest {
     /**
      * 请求超时时间，秒为单位
      */
-    var mDefaultTimeout = 10
+    var mDefaultTimeout = 60
 
     /**
      * 添加默认的请求头
@@ -90,6 +90,8 @@ object HttpRequest {
 
             // 超时时间
             httpClientBuilder.connectTimeout(mDefaultTimeout.toLong(), TimeUnit.SECONDS)
+            httpClientBuilder.readTimeout(mDefaultTimeout.toLong(), TimeUnit.SECONDS)
+            httpClientBuilder.writeTimeout(mDefaultTimeout.toLong(), TimeUnit.SECONDS)
 
             // 拦截器
             interceptors.forEach { interceptor ->
@@ -152,17 +154,6 @@ object HttpRequest {
                 }
 
                 builder.callFactory {
-                    LogUtil.i("HttpRequest", "host:  $host")
-                    LogUtil.i("HttpRequest", "getService: old ${it.url()}")
-                    val pathSegments: List<String> = HttpUrl.get(host).pathSegments()
-                    LogUtil.i("=======", "url:${HttpUrl.get(host).url()}")
-                    LogUtil.i("=======", "url:${HttpUrl.get(host).host()}")
-//                    if ("" != pathSegments[pathSegments.size - 1]){
-//
-//                    }
-                    pathSegments.forEach {
-                        LogUtil.i("========", "host:  $it")
-                    }
                     mBaseUrlMap.forEach { entry ->
                         val key = entry.key
                         var value = entry.value
@@ -180,7 +171,6 @@ object HttpRequest {
                                 it.newBuilder()
                                     .url(HttpUrl.get(url.replaceFirst(key, value)))
                                     .build()
-                            LogUtil.i("HttpRequest", "getService: new ${newRequest.url()}")
                             return@callFactory client.newCall(newRequest)
                         }
                     }
